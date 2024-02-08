@@ -1,0 +1,51 @@
+[
+  {
+    "postId": 1,
+    "name": "Leon Johnson",
+    "title": "Perfekte Umsetzung meiner Vision",
+    "email": "leon_johnson@leon.org",
+    "tags": "#commercial",
+    "body": "Absolut begeistert von der Kreativität und Präzision! Das Team meines Innerarchitekturbüros hat unsere Vision perfekt umgesetzt. Einzigartiges Design, großartige Zusammenarbeit!",
+    "image": "img/people/client_01.jpg"
+  },
+
+  {
+    "postId": 2,
+    "name": "Emilia Schmidt",
+    "title": "Farbpalette und Design begeistern",
+    "email": "mary_kunzen@marie.org",
+    "tags": "#privates wohnen",
+    "body": "Hervorragende Dienstleistungen! Das Innerarchitekturbüro zeichnet sich durch Fachkenntnisse, Pünktlichkeit und innovative Ideen aus. Unsere Räume wurden zu echten Kunstwerken transformiert. Sehr zu empfehlen!",
+    "image": "img/people/client_02.jpg"
+  },
+
+  {
+    "postId": 3,
+    "name": "Maya Patel",
+    "title": "Professionell, kreativ, zuvorkommend",
+    "email": "maya_patel@maya.org",
+    "tags": "#ferienimmobilien",
+    "body": "Mein Innerarchitekturbüro des Vertrauens! Professionell, freundlich und stets auf höchstem Niveau. Die maßgeschneiderten Lösungen haben unsere Erwartungen übertroffen. Ein echter Gewinn für jeden, der Qualität schätzt.",
+    "image": "img/people/client_03.jpg"
+  },
+
+  {
+    "postId": 4,
+    "name": "Anna Chang",
+    "title": "Beeindruckende Arbeit",
+    "email": "anna_chang@anna.org",
+    "tags": "#privates wohnen",
+    "body": "Einzigartige Ästhetik und Funktionalität! Das Innerarchitekturbüro hat unser Zuhause in einen stilvollen Rückzugsort verwandelt. Beeindruckende Designs und sorgfältige Umsetzung. Wir sind mehr als zufrieden!",
+    "image": "img/people/client_04.jpg"
+  },
+
+  {
+    "postId": 5,
+    "name": "Isabella Ramirez",
+    "title": "Verwandlung unseres Hauses",
+    "email": "isabella_raminez@isabella.org",
+    "tags": "#commercial",
+    "body": "Exzellenter Kundenservice! Von der Planung bis zur Umsetzung hat das Innerarchitekturbüro ein herausragendes Maß an Professionalität gezeigt. Die Ergebnisse sprechen für sich – unsere Erwartungen wurden übertroffen. Danke!",
+    "image": "img/people/client_05.jpg"
+  }
+]
