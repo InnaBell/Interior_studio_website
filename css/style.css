@@ -327,7 +327,7 @@ h5 {
   transform: translateY(-50%);
   z-index: 1;
   padding: 15px;
-  opacity: 60%;
+  opacity: 70%;
   transition: opacity 0.8s;
 }
 
@@ -387,7 +387,7 @@ h5 {
   transform: translateY(-50%);
   z-index: 1;
   padding: 15px;
-  opacity: 60%;
+  opacity: 70%;
   transition: opacity 0.8s;
 }
 
@@ -1254,7 +1254,9 @@ label span {
   transform: translate(-50%, -50%);
   color: var(--white-color);
   background-color: var(--heading-font-color);
-  padding: 2.5rem;
+  padding: 3.125rem;
+  text-align: center;
+  border: 0.0125rem solid var(--body-font-color);
 }
 
 .modal__close {
@@ -1763,6 +1765,10 @@ label span {
   .testimonials__quote-right svg {
     width: 1.875rem;
     height: auto;
+  }
+
+  .header__menu-container {
+    width: 70%;
   }
 }
 
