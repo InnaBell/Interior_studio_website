@@ -1,3 +1,15 @@
+<?php
+require_once( 'config.php' ); // Config werte laden
+require_once( 'library/database.php' ); // DB Funktionen laden
+require_once( 'library/session.php' ); // Session Funktionen laden
+
+session_name( md5(SESSION_NAME) );
+session_start();
+
+$db = db_connect();
+?>
+
+
 <!DOCTYPE html>
 <html lang="de">
 
@@ -6,7 +18,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/burger_menu.js" defer></script>
-	<script src="js/feedback.js" defer></script>
+	<!-- <script src="js/feedback.js" defer></script> -->
 	<link rel="stylesheet" href="https://use.typekit.net/hwv6nai.css">
 	<link rel="apple-touch-icon" sizes="180x180" href="img/icons/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon/favicon-32x32.png">
@@ -43,7 +55,7 @@
 									<a href="about.html" class="menu__link">Team</a>
 								</li>
 								<li class="menu__item">
-									<a href="feedback.html" class="menu__link active">Feedback</a>
+									<a href="feedback.php" class="menu__link active">Feedback</a>
 								</li>
 								<li class="menu__item">
 									<a href="contacts.html" class="menu__link">Kontakt</a>
@@ -103,14 +115,70 @@
 
 			<section class="page__testimonials">
 				<div class="testimonials__container">
-
 					<div class="article__title-block title-block margin-bottom-sm">
 						<h5 class="accent-color">Professionell, kreativ, zuvorkommend.</h5>
 						<h4>“Das Innenarchitekturbüro hat unseren Raum in eine stilvolle Umgebung verwandelt. Wir sind
 							begeistert!”</h4>
 					</div>
 
-					<div class="testimonials"></div>
+					<div class="testimonials">
+						
+					<?php 
+				// Abfrage erstellen und in die Tabelle schreiben 
+				try {
+					// prepare - Abfrage vorbereiten (SQL Injection vermeiden)
+					$query = $db->prepare("SELECT * FROM `Posts`"); 
+					$query->execute();
+					$posts = $query -> fetchAll( PDO::FETCH_ASSOC );
+				} catch (PDOException $e) {
+					echo 'Fehler beim Ausführen der Abfrage: ' . $e->getMessage();
+				}
+
+				// Daten in die Tabelle schreiben
+				foreach ($posts as $post) {
+					try {
+						$query = $db->prepare("SELECT * FROM `Posts_category` WHERE `id` = :id"); 
+						$query->execute(['id' => $post['category_id']]);
+						$category = $query -> fetchAll( PDO::FETCH_ASSOC );
+					} catch (PDOException $e) {
+						echo 'Fehler beim Ausführen der Abfrage: ' . $e->getMessage();
+					}
+					?>
+
+						<div class="testimonials__item">
+
+							<div class="testimonials__image">
+								<img src="<?= $post['image'] ?>" alt="Foto des Kunden">
+							</div>
+
+							<div class="testimonials__text-side">
+
+								<div class="testimonials__quote-left"><svg xmlns="http://www.w3.org/2000/svg" width="42"
+										height="32" viewBox="0 0 42 32" fill="none">
+										<path
+											d="M0.45459 32V23.2727C0.45459 20.697 0.939438 17.9849 1.90914 15.1364C2.87883 12.2879 4.22732 9.56061 5.95459 6.95455C7.68186 4.34849 9.71217 2.12122 12.0455 0.272736L18.7728 5.09091C16.9243 7.78788 15.3485 10.6061 14.0455 13.5455C12.7425 16.4849 12.091 19.6818 12.091 23.1364V32H0.45459ZM23.6364 32V23.2727C23.6364 20.697 24.1213 17.9849 25.091 15.1364C26.0607 12.2879 27.4091 9.56061 29.1364 6.95455C30.8637 4.34849 32.894 2.12122 35.2273 0.272736L41.9546 5.09091C40.1061 7.78788 38.5304 10.6061 37.2273 13.5455C35.9243 16.4849 35.2728 19.6818 35.2728 23.1364V32H23.6364Z"
+											fill="#E06337" fill-opacity="0.95" />
+									</svg></div>
+
+								<div class="testimonials__body">
+									<h5 class="text-side__title"><?= $post['title'] ?></h5>
+									<h6 class="text-side__autor"><?= $post['author'] ?> <span><?= $category[0]['label'] ?></span></h6>
+									<p class="text-side__comment"><?= $post['text'] ?></p>
+								</div>
+
+								<div class="testimonials__quote-right"><svg xmlns="http://www.w3.org/2000/svg"
+										width="42" height="33" viewBox="0 0 42 33" fill="none">
+										<path
+											d="M18.8181 0.909058V9.63633C18.8181 12.2121 18.3333 14.9242 17.3636 17.7727C16.4242 20.5909 15.0909 23.303 13.3636 25.9091C11.6363 28.5151 9.60602 30.7575 7.27268 32.6363L0.54541 27.8181C2.33329 25.2121 3.87874 22.4394 5.18177 19.5C6.51511 16.5606 7.18177 13.3181 7.18177 9.7727V0.909058H18.8181ZM41.9545 0.909058V9.63633C41.9545 12.2121 41.4697 14.9242 40.5 17.7727C39.5606 20.5909 38.2272 23.303 36.5 25.9091C34.7727 28.5151 32.7424 30.7575 30.409 32.6363L23.6818 27.8181C25.4697 25.2121 27.0151 22.4394 28.3181 19.5C29.6515 16.5606 30.3181 13.3181 30.3181 9.7727V0.909058H41.9545Z"
+											fill="#E06337" fill-opacity="0.95" />
+									</svg></div>
+							</div>
+						</div>
+						<?php
+				}
+				?>
+
+					</div>
 
 					<button class="projects__button main__button">Entdecke mehr</button>
 
@@ -152,7 +220,7 @@
 						<a href="projects.html">Projekte</a>
 						<a href="services.html">Services</a>
 						<a href="about.html">Team</a>
-						<a href="feedback.html">Feedback</a>
+						<a href="feedback.php">Feedback</a>
 						<a href="contacts.html">Kontakt</a>
 					</div>
 

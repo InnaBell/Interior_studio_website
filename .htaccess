@@ -1,0 +1,5 @@
+Options +SymLinksIfOwnerMatch
+RewriteEngine On
+
+# Redirect all 404s to 404.php
+ErrorDocument 404 /errors/404.php

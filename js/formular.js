@@ -80,45 +80,50 @@ function validateForm(event) {
 
   // Daten an den Server senden
   if (Object.keys(validationErrors).length > 0) {
-    displayError(validationErrors); // Fehler anzeigen
+    displayError(validationErrors);
   } else {
-    if (dataFromUser.title) {
-      console.info("Title: ", dataFromUser.title);
-    }
-    if (dataFromUser.firstName) {
-      console.info("First name: ", dataFromUser.firstName);
-    }
-    if (dataFromUser.lastName) {
-      console.info("Last name: ", dataFromUser.lastName);
-    }
-    if (dataFromUser.place) {
-      console.info("Place: ", dataFromUser.place);
-    }
-    if (dataFromUser.address) {
-      console.info("Address: ", dataFromUser.address);
-    }
-    if (dataFromUser.postalCode) {
-      console.info("Postal code: ", dataFromUser.postalCode);
-    }
-    if (dataFromUser.email) {
-      console.info("Email: ", dataFromUser.email);
-    }
-    if (dataFromUser.message) {
-      console.info("Message: ", dataFromUser.message);
-    }
-    console.info("Daten an den Server gesendet");
-    // Formular leeren
-    document.querySelector("#title-01").value = "";
-    document.querySelector("#first-name-01").value = "";
-    document.querySelector("#last-name-01").value = "";
-    document.querySelector("#place-01").value = "";
-    document.querySelector("#address-01").value = "";
-    document.querySelector("#postal-code-01").value = "";
-    document.querySelector("#email-01").value = "";
-    document.querySelector("#message-01").value = "";
-
-    openModal(); // Modal-Fenster 'Danke für Ihre nachricht'
+    sendDataToServer(dataFromUser);
   }
+}
+
+function sendDataToServer(data) {
+  fetch("../actions/send_data.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Netzwerkantwort war nicht ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.success) {
+        console.info("Daten an den Server gesendet");
+        clearForm();
+        openModal();
+      } else {
+        displayError(data.errors);
+      }
+    })
+    .catch((error) => {
+      console.error("Fehler beim Senden der Daten:", error);
+      alert("Fehler beim Senden der Daten. Bitte versuchen Sie es erneut.");
+    });
+}
+
+function clearForm() {
+  document.querySelector("#title-01").value = "";
+  document.querySelector("#first-name-01").value = "";
+  document.querySelector("#last-name-01").value = "";
+  document.querySelector("#place-01").value = "";
+  document.querySelector("#address-01").value = "";
+  document.querySelector("#postal-code-01").value = "";
+  document.querySelector("#email-01").value = "";
+  document.querySelector("#message-01").value = "";
 }
 
 // Fehler in den Formular hinzufügen
